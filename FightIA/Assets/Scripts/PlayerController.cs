@@ -101,21 +101,21 @@ public class PlayerController : MonoBehaviour
 
     void Ataque()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !atacando) //Arriba
+        if (Input.GetKeyDown(KeyCode.J) && !atacando && !protegido) //Arriba
         {
             hitboxAtaque[0].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
 
             //Animacion correspondiente TODO
         }
-        else if (Input.GetKeyDown(KeyCode.K) && !atacando) //Centro
+        else if (Input.GetKeyDown(KeyCode.K) && !atacando && !protegido) //Centro
         {
             hitboxAtaque[1].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
 
             //Animacion correspondiente TODO
         }
-        else if (Input.GetKeyDown(KeyCode.L) && !atacando) //Abajo
+        else if (Input.GetKeyDown(KeyCode.L) && !atacando && !protegido) //Abajo
         {
             hitboxAtaque[2].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
@@ -123,10 +123,6 @@ public class PlayerController : MonoBehaviour
             //Animacion correspondiente TODO
         }
     }
-
-
-
-
 
     private void OnCollisionEnter(Collision collision)
     {
