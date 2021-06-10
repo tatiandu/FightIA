@@ -7,8 +7,9 @@ public class PlayerController : MonoBehaviour
     public float velocidad;
     public float fuerzaSalto;
     public float tiempoAtaque;
+    public GameObject escudo;
     public GameObject[] hitboxAtaque; //0: Arriba, 1: Centro, 2: Abajo
-    public Collider[] hitboxJugador; //0: De pie, 1: Agachado
+    public Collider[] hitboxPersonaje; //0: De pie, 1: Agachado
 
     Rigidbody rb;
     bool enElSuelo; //Si esta en contacto con el suelo
@@ -71,13 +72,13 @@ public class PlayerController : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && enElSuelo)
         {
-            hitboxJugador[0].enabled = false;
-            hitboxJugador[1].enabled = true;
+            hitboxPersonaje[0].enabled = false;
+            hitboxPersonaje[1].enabled = true;
         }
         else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
         {
-            hitboxJugador[0].enabled = true;
-            hitboxJugador[1].enabled = false;
+            hitboxPersonaje[0].enabled = true;
+            hitboxPersonaje[1].enabled = false;
         }
 
         //Animacion correspondiente TODO
@@ -88,12 +89,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) && !atacando && enElSuelo)
         {
             protegido = true;
-
+            escudo.SetActive(true);
         }
         else if (Input.GetKeyUp(KeyCode.I))
         {
             protegido = false;
-
+            escudo.SetActive(false);
         }
 
         //Animacion correspondiente TODO

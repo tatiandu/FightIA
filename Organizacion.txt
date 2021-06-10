@@ -5,8 +5,9 @@
 -2: Pruebas realizadas y resultados
 -4: Explicación por puntos de todo lo que se puede hacer en el prototipo
 
--Movimiento y ataques del jugador
+x-Movimiento y ataques del jugador
 -Corresponder las barras de vida a los ataques
 -IA: máquina de estados por código con un switch ordenadito, limpito y espectacular
--Meter los personajes y animaciones acordes a los estados/ataques
+x-Meter los personajes y escenario
+-Animaciones acordes a los estados/ataques Y ESCUDO
 -Detallitos finales (animaciones mas rapidas si poca vida/tiempo)
