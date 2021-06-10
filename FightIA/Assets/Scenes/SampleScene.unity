@@ -972,14 +972,14 @@ RectTransform:
   m_GameObject: {fileID: 409943348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children: []
   m_Father: {fileID: 679016716}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -3.5999985, y: 0}
+  m_AnchoredPosition: {x: 3.3999996, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!199 &409943350
@@ -1881,7 +1881,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5985,8 +5985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 3.5
   fuerzaSalto: 7
-  tiempoAtaque: 0.5
-  target: {fileID: 1326441147}
+  tiempoAtaque: 0.2
   escudo: {fileID: 1746816533}
   hitboxAtaque:
   - {fileID: 2124977912}
@@ -5996,9 +5995,10 @@ MonoBehaviour:
   - {fileID: 618065812}
   - {fileID: 618065815}
   distanciaMin: 1.5
-  distanciaMax: 4
+  distanciaMax: 5
+  distanciaAccion: 3
   tiempoNextMov: 0.2
-  tiempoNextAc: 3
+  tiempoNextAc: 0.5
 --- !u!65 &618065815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6401,7 +6401,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c313d934cffd6654289291919b5c5be6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.17806077
+      value: 1.215
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c313d934cffd6654289291919b5c5be6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7672,7 +7672,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 37c68c671d85f04429b20affd0b392bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.18693924
+      value: 1.58
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37c68c671d85f04429b20affd0b392bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8071,7 +8071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 4
   fuerzaSalto: 7
-  tiempoAtaque: 0.5
+  tiempoAtaque: 0.2
   escudo: {fileID: 1460761058}
   hitboxAtaque:
   - {fileID: 243737192}
@@ -9595,14 +9595,14 @@ RectTransform:
   m_GameObject: {fileID: 1843065050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children: []
   m_Father: {fileID: 630165090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 3.600006, y: 0}
+  m_AnchoredPosition: {x: -5.8999996, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!199 &1843065052
@@ -10504,7 +10504,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2

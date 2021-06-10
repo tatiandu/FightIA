@@ -12,7 +12,6 @@ public class EnemyAI : MonoBehaviour
     public Collider[] hitboxPersonaje; //0: De pie, 1: Agachado
 
     Rigidbody rb;
-    Animation animacion;
     bool enElSuelo; //Si esta en contacto con el suelo
     bool atacando; //Si esta atacando
     bool protegido; //Si se esta protegiendo
@@ -20,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     public float distanciaMin; //Cuanto se puede acercar al jugador
     public float distanciaMax; //Cuanto se puede alejar del jugador
+    public float distanciaAccion;
     public float tiempoNextMov; //Tiempo que tarda en pensar el siguiente movimiento
     public float tiempoNextAc; //Tiempo que tarda en pensar la siguiente accion
     float temporizadorMovimiento;
@@ -27,13 +27,12 @@ public class EnemyAI : MonoBehaviour
     Movimientos movimientoActual;
     Acciones accionActual;
 
-    enum Movimientos { Acercarse, Alejarse, Quieto, TotalMovimientos }
-    enum Acciones { Agacharse, Levantarse, Saltar, Atacar, Protegerse, Nada, TotalAcciones }
+    enum Movimientos { Acercarse, Alejarse, Quieto }
+    enum Acciones { Agacharse, Levantarse, Saltar, AtacarArriba, AtacarCentro, AtacarAbajo, Protegerse, Nada }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animacion = GetComponentInChildren<Animation>();
         atacando = false;
         protegido = false;
         temporizadorAtaque = 0;
@@ -96,7 +95,81 @@ public class EnemyAI : MonoBehaviour
 
     void SiguienteAccion()
     {
+        float vidaJugador = GameManager.Instance.GetVidaJugador();
+        float vidaEnemigo = GameManager.Instance.GetVidaEnemigo();
         float distancia = Vector3.Distance(GameManager.Instance.GetPosJugador(), transform.position);
+        PlayerController.Estado estadoJugador = GameManager.Instance.GetEstadoJugador();
+
+        switch (estadoJugador) //Actua segun que este haciendo el jugador
+        {
+            case PlayerController.Estado.Nada:
+                if(distancia < distanciaAccion) //Cerca
+                {
+                    //Probabilidad dependiente de la vida restante de cada jugador
+                    accionActual = Acciones.AtacarCentro;
+                }
+                else //Lejos
+                {
+                    //Probabilidad random
+                    accionActual = Acciones.Saltar;
+                }
+                break;
+
+            case PlayerController.Estado.Atacando:
+                if (distancia < distanciaAccion) //Cerca
+                {
+                    //Pequeña probabilidad de atacar de vuelta y mayor de saltar y protegerse
+                    accionActual = Acciones.Saltar;
+                }
+                else //Lejos
+                {
+                    //Probabilidad random pero un poco mas de protegerse
+                    accionActual = Acciones.Protegerse;
+                }
+                break;
+
+            case PlayerController.Estado.Protegido:
+                if (distancia < distanciaAccion) //Cerca
+                {
+                    //Mayor probabilidad de ataque bajo, menor de otros ataques y poco de random
+                    accionActual = Acciones.AtacarAbajo;
+                }
+                else //Lejos
+                {
+                    //Nada y un poquito de error
+                    accionActual = Acciones.Agacharse;
+                }
+                break;
+
+            case PlayerController.Estado.Agachado:
+                if (distancia < distanciaAccion) //Cerca
+                {
+                    //Mayor probabilidad de ataque bajo, menor de otros ataques y tambien de salto
+                    accionActual = Acciones.AtacarAbajo;
+                }
+                else //Lejos
+                {
+                    //Probabilidad random
+                    accionActual = Acciones.Protegerse;
+                }
+                break;
+
+            case PlayerController.Estado.Saltando:
+                if (distancia < distanciaAccion) //Cerca
+                {
+                    //Probabilidad dependiente de la vida restante de cada jugador
+                    accionActual = Acciones.AtacarArriba;
+                }
+                else //Lejos
+                {
+                    //Probabilidad random con mayor proteccion o saltar
+                    accionActual = Acciones.Saltar;
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
     //Decide cual es la mejor opción de movimiento
@@ -152,9 +225,19 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Boing!");
                 break;
 
-            case Acciones.Atacar:
-                if (!atacando) Atacar(Random.Range(0, 3));
-                Debug.Log("Ataco");
+            case Acciones.AtacarArriba:
+                if (!atacando) AtaqueArriba();
+                Debug.Log("Ataco arriba");
+                break;
+
+            case Acciones.AtacarCentro:
+                if (!atacando) AtaqueCentro();
+                Debug.Log("Ataco centro");
+                break;
+
+            case Acciones.AtacarAbajo:
+                if (!atacando) AtaqueAbajo();
+                Debug.Log("Ataco abajo");
                 break;
 
             case Acciones.Protegerse:
@@ -230,39 +313,21 @@ public class EnemyAI : MonoBehaviour
         rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
     }
 
-    //0: Arriba, 1: Centro, 2: Abajo
-    void Atacar(int ataque)
-    {
-        Nada();
-
-        switch(ataque)
-        {
-            case 0:
-                AtaqueArriba();
-                break;
-            case 1:
-                AtaqueCentro();
-                break;
-            case 2:
-                AtaqueAbajo();
-                break;
-            default:
-                break;
-        }
-    }
-
     void AtaqueArriba()
     {
+        Nada();
         hitboxAtaque[0].SetActive(true); //Activar la hitbox del ataque
         atacando = true; //Activar timer de duracion del ataque
     }
     void AtaqueCentro()
     {
+        Nada();
         hitboxAtaque[1].SetActive(true); //Activar la hitbox del ataque
         atacando = true; //Activar timer de duracion del ataque
     }
     void AtaqueAbajo()
     {
+        Nada();
         hitboxAtaque[2].SetActive(true); //Activar la hitbox del ataque
         atacando = true; //Activar timer de duracion del ataque
     }

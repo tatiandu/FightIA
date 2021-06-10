@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            vidaJugador.PerderVida(0.1f);
+        }
+
         //Cambia la orientacion de los personajes si se cruzan
         if(!personajesGirados && jugador.transform.position.x > enemigo.transform.position.x)
         {
@@ -59,6 +64,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Getter de la posicion del jugador
     public Vector3 GetPosJugador()
     {
         return jugador.transform.position;
@@ -68,5 +74,17 @@ public class GameManager : MonoBehaviour
     public PlayerController.Estado GetEstadoJugador() 
     {
         return comportamientoJugador.GetEstado();
+    }
+
+    //Getter de la vida restante del jugador
+    public float GetVidaJugador()
+    {
+        return vidaJugador.GetSalud();
+    }
+
+    //Getter de la vida restante del enemigo
+    public float GetVidaEnemigo()
+    {
+        return vidaEnemigo.GetSalud();
     }
 }
