@@ -773,7 +773,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiempoRestante: 120
-  textoTimer: {fileID: 237587930}
 --- !u!1 &243737192
 GameObject:
   m_ObjectHideFlags: 0
@@ -5984,7 +5983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4583ecf7413df43a52f98c16e3d311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 6.5
+  velocidad: 3.5
   fuerzaSalto: 7
   tiempoAtaque: 0.5
   target: {fileID: 1326441147}
@@ -5996,7 +5995,9 @@ MonoBehaviour:
   hitboxPersonaje:
   - {fileID: 618065812}
   - {fileID: 618065815}
-  tiempoNextMov: 3
+  distanciaMin: 1.5
+  distanciaMax: 4
+  tiempoNextMov: 0.2
   tiempoNextAc: 3
 --- !u!65 &618065815
 BoxCollider:
@@ -7233,6 +7234,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7305,6 +7307,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 6.679, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5bcb3bec2532384495568e65ca99569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jugador: {fileID: 1326441147}
+  enemigo: {fileID: 618065809}
+  tiempo: {fileID: 237587932}
+  vidaJugador: {fileID: 840224618}
+  vidaEnemigo: {fileID: 1789993836}
 --- !u!1001 &978313802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8050,7 +8069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbae180e7421a54eac5af850d5af9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 6.5
+  velocidad: 4
   fuerzaSalto: 7
   tiempoAtaque: 0.5
   escudo: {fileID: 1460761058}

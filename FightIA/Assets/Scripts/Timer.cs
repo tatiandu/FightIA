@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public float tiempoRestante = 120;
-    public Text textoTimer;
 
+    Text textoTimer;
     bool activado;
 
     private void Start()
     {
+        textoTimer = GetComponent<Text>();
         activado = true; //Comenzar el contador automaticamente
     }
 
@@ -41,5 +42,10 @@ public class Timer : MonoBehaviour
         float segundos = Mathf.FloorToInt(tiempoAMostrar % 60);
 
         textoTimer.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+    }
+
+    public float GetTiempo()
+    {
+        return tiempoRestante;
     }
 }

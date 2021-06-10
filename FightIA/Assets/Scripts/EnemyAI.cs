@@ -19,8 +19,10 @@ public class EnemyAI : MonoBehaviour
     bool protegido; //Si se esta protegiendo
     float temporizadorAtaque; //Para el ataque
 
-    public float tiempoNextMov;
-    public float tiempoNextAc;
+    public float distanciaMin; //Cuanto se puede acercar al jugador
+    public float distanciaMax; //Cuanto se puede alejar del jugador
+    public float tiempoNextMov; //Tiempo que tarda en pensar el siguiente movimiento
+    public float tiempoNextAc; //Tiempo que tarda en pensar la siguiente accion
     float temporizadorMovimiento;
     float temporizadorAccion;
     Movimientos movimientoActual;
@@ -95,11 +97,41 @@ public class EnemyAI : MonoBehaviour
 
     void SiguienteAccion() //TODO cambiar
     {
-        accionActual = (Acciones)Random.Range(0, (int)Acciones.TotalAcciones);
+        //accionActual = (Acciones)Random.Range(0, (int)Acciones.TotalAcciones);
     }
-    void SiguienteMovimiento() //TODO cambiar
+
+    //Decide cual es la mejor opción de movimiento
+    void SiguienteMovimiento()
     {
-        //movimientoActual = (Movimientos)Random.Range(0, (int)Movimientos.TotalMovimientos);
+        int help = Random.Range(0, 100); //Calculo de probabilidades para los casos
+        Vector3 miPosicion = transform.position;
+        Vector3 posicionAdversario = target.transform.position; //Posicion del jugador (target)
+
+        if (Vector3.Distance(miPosicion, posicionAdversario) <= distanciaMin) //Si esta muy cerca
+        {
+            if (help < 80) //80%
+                movimientoActual = Movimientos.Alejarse;
+        }
+        else if (Vector3.Distance(miPosicion, posicionAdversario) >= distanciaMax) //Si esta muy lejos
+        {
+            if (help < 80) //80%
+                movimientoActual = Movimientos.Acercarse;
+        }
+        else
+        {
+            if(help < 20) //Probabilidad 20% : Se acerca al jugador
+            {
+                movimientoActual = Movimientos.Acercarse;
+            }
+            else if (help >= 20 && help < 40) //Probabilidad 20% : Se aleja del jugador
+            {
+                movimientoActual = Movimientos.Alejarse;
+            }
+            else //Probabilidad 60% : Se queda quieto en el sitio
+            {
+                movimientoActual = Movimientos.Quieto;
+            }
+        }
     }
 
     void RealizaAccion()

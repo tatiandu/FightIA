@@ -14,15 +14,22 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     bool enElSuelo; //Si esta en contacto con el suelo
     bool atacando; //Si esta atacando
+    bool agachado; //Si esta agachado
     bool protegido; //Si se esta protegiendo
     float temporizador; //Para el ataque
+
+    public Estado estadoActual;
+    public enum Estado { Saltando, Agachado, Protegido, Atacando, Nada }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         atacando = false;
+        agachado = false;
         protegido = false;
         temporizador = 0;
+
+        estadoActual = Estado.Nada; //Estado inicial
     }
 
     void Update()
@@ -31,6 +38,8 @@ public class PlayerController : MonoBehaviour
         Agachar(); //Input de agacharse
         Proteger(); //Input de protegerse
         Ataque(); //Input de ataque
+
+        ActualizaEstado(); //Actualizamos el estado actual del jugador
 
         if (atacando) //Si esta ejecutando un ataque
         {
@@ -58,6 +67,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ActualizaEstado()
+    {
+        if (protegido) //Protegido
+            estadoActual = Estado.Protegido;
+        else if (enElSuelo) //Atacando, Agachado, Nada
+        {
+            if (atacando) estadoActual = Estado.Atacando;
+            else if (agachado) estadoActual = Estado.Agachado;
+            else estadoActual = Estado.Nada;
+        }
+        else { //Saltando, Atacando
+            if (atacando) estadoActual = Estado.Atacando;
+            else estadoActual = Estado.Saltando;
+        }
+    }
+
     void Salto()
     {
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && enElSuelo && !protegido)
@@ -70,13 +95,15 @@ public class PlayerController : MonoBehaviour
 
     void Agachar()
     {
-        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && enElSuelo)
+        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && enElSuelo) //Se agacha
         {
+            agachado = true;
             hitboxPersonaje[0].enabled = false;
             hitboxPersonaje[1].enabled = true;
         }
-        else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
+        else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) //Se pone de pie
         {
+            agachado = false;
             hitboxPersonaje[0].enabled = true;
             hitboxPersonaje[1].enabled = false;
         }
@@ -125,10 +152,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Estado GetEstado()
+    {
+        return estadoActual;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Plane")
         {
+            estadoActual = Estado.Nada; //Actualizamos estado
             enElSuelo = true;
         }
     }

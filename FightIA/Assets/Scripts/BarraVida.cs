@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class BarraVida : MonoBehaviour
 {
-    private Slider barra;
-    private float valorFinal = 1;
+    Slider barra;
+    float valorFinal = 1;
 
     public float velocidad = 0.5f;
     public ParticleSystem particulas;
@@ -47,5 +47,10 @@ public class BarraVida : MonoBehaviour
     public void PerderVida(float valor)
     {
         valorFinal = barra.value - valor;
+    }
+
+    public float GetSalud()
+    {
+        return barra.value;
     }
 }
