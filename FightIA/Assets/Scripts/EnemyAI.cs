@@ -7,7 +7,6 @@ public class EnemyAI : MonoBehaviour
     public float velocidad;
     public float fuerzaSalto;
     public float tiempoAtaque;
-    public GameObject target;
     public GameObject escudo;
     public GameObject[] hitboxAtaque; //0: Arriba, 1: Centro, 2: Abajo
     public Collider[] hitboxPersonaje; //0: De pie, 1: Agachado
@@ -95,9 +94,9 @@ public class EnemyAI : MonoBehaviour
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    void SiguienteAccion() //TODO cambiar
+    void SiguienteAccion()
     {
-        //accionActual = (Acciones)Random.Range(0, (int)Acciones.TotalAcciones);
+        float distancia = Vector3.Distance(GameManager.Instance.GetPosJugador(), transform.position);
     }
 
     //Decide cual es la mejor opción de movimiento
@@ -105,7 +104,7 @@ public class EnemyAI : MonoBehaviour
     {
         int help = Random.Range(0, 100); //Calculo de probabilidades para los casos
         Vector3 miPosicion = transform.position;
-        Vector3 posicionAdversario = target.transform.position; //Posicion del jugador (target)
+        Vector3 posicionAdversario = GameManager.Instance.GetPosJugador(); //Posicion del jugador (target)
 
         if (Vector3.Distance(miPosicion, posicionAdversario) <= distanciaMin) //Si esta muy cerca
         {
@@ -186,7 +185,7 @@ public class EnemyAI : MonoBehaviour
                 break;
 
             case Movimientos.Quieto:
-                Quieto();
+                //El personaje parara su movimiento por si solo
                 break;
 
             default:
@@ -198,7 +197,7 @@ public class EnemyAI : MonoBehaviour
 
     void Acercarse() //Se acerca al jugador (target)
     {
-        Vector3 dir = target.transform.position - transform.position;
+        Vector3 dir = GameManager.Instance.GetPosJugador() - transform.position;
         dir.Normalize();
 
         rb.velocity = new Vector3(velocidad * dir.x, rb.velocity.y, rb.velocity.z);
@@ -206,15 +205,10 @@ public class EnemyAI : MonoBehaviour
 
     void Alejarse() //Se aleja del jugador (target)
     {
-        Vector3 dir = transform.position - target.transform.position;
+        Vector3 dir = transform.position - GameManager.Instance.GetPosJugador();
         dir.Normalize();
 
         rb.velocity = new Vector3(velocidad * dir.x, rb.velocity.y, rb.velocity.z);
-    }
-
-    void Quieto() //Ponemos nula la velocidad en X para que se detenga
-    {
-        rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
     }
 
     void Agacharse() //Cambiamos a la hitbox de personaje agachado
@@ -275,8 +269,6 @@ public class EnemyAI : MonoBehaviour
 
     void Protegerse() //Activa el escudo y se protege
     {
-        Quieto();
-
         protegido = true;
         escudo.SetActive(true);
     }
