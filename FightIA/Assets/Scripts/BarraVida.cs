@@ -53,4 +53,9 @@ public class BarraVida : MonoBehaviour
     {
         return barra.value;
     }
+
+    public bool estaAgotada()
+    {
+        return barra.value <= 0;
+    }
 }

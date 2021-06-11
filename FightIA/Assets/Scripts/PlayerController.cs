@@ -34,23 +34,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Salto(); //Input de salto
-        Agachar(); //Input de agacharse
-        Proteger(); //Input de protegerse
-        Ataque(); //Input de ataque
-
-        ActualizaEstado(); //Actualizamos el estado actual del jugador
-
-        if (atacando) //Si esta ejecutando un ataque
+        if (GameManager.Instance.sigueEnJuego())
         {
-            temporizador += Time.deltaTime;
+            Salto(); //Input de salto
+            Agachar(); //Input de agacharse
+            Proteger(); //Input de protegerse
+            Ataque(); //Input de ataque
 
-            if (temporizador >= tiempoAtaque) { //Si ha pasado el tiempo de ataque
-                atacando = false;
-                temporizador = 0;
+            ActualizaEstado(); //Actualizamos el estado actual del jugador
 
-                foreach (GameObject aux in hitboxAtaque) { //Desactivar hitbox activas
-                    aux.SetActive(false);
+            if (atacando) //Si esta ejecutando un ataque
+            {
+                temporizador += Time.deltaTime;
+
+                if (temporizador >= tiempoAtaque)
+                { //Si ha pasado el tiempo de ataque
+                    atacando = false;
+                    temporizador = 0;
+
+                    foreach (GameObject aux in hitboxAtaque)
+                    { //Desactivar hitbox activas
+                        aux.SetActive(false);
+                    }
                 }
             }
         }
@@ -58,12 +63,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Movimiento en horizontal del personaje si no se esta protegiendo
-        if (!protegido)
+        if (GameManager.Instance.sigueEnJuego())
         {
-            rb.velocity = new Vector3(velocidad * Input.GetAxis("Horizontal"), rb.velocity.y, rb.velocity.z);
+            //Movimiento en horizontal del personaje si no se esta protegiendo
+            if (!protegido)
+            {
+                rb.velocity = new Vector3(velocidad * Input.GetAxis("Horizontal"), rb.velocity.y, rb.velocity.z);
 
-            //Animacion correspondiente TODO
+                //Animacion correspondiente TODO
+            }
         }
     }
 

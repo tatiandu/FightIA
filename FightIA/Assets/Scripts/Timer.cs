@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
     {
         if (activado)
         {
-            if (tiempoRestante > 0) //Mientras quede tiempo restamos
+            if (!tiempoAgotado()) //Mientras quede tiempo restamos
             {
                 tiempoRestante -= Time.deltaTime;
                 MostrarTiempo(tiempoRestante);
@@ -47,5 +47,15 @@ public class Timer : MonoBehaviour
     public float GetTiempo()
     {
         return tiempoRestante;
+    }
+
+    public bool tiempoAgotado()
+    {
+        return tiempoRestante <= 0;
+    }
+
+    public void paraTiempo()
+    {
+        activado=false;
     }
 }

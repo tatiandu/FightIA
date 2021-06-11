@@ -233,6 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48403093}
   - component: {fileID: 48403094}
+  - component: {fileID: 48403095}
   m_Layer: 10
   m_Name: Abajo
   m_TagString: Untagged
@@ -268,6 +269,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1561053, y: 0.64375997, z: 1}
   m_Center: {x: -0.07004713, y: 0.014009596, z: 0}
+--- !u!114 &48403095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48403092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46085ef76d9a5b9419d03a3374705eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &63477994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -879,7 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67e5e8e3638f33419a157268feb0b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoRestante: 120
+  tiempoRestante: 10
 --- !u!1 &243737192
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 243737193}
   - component: {fileID: 243737194}
+  - component: {fileID: 243737195}
   m_Layer: 10
   m_Name: Arriba
   m_TagString: Untagged
@@ -925,6 +939,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2295282, y: 0.62285066, z: 1}
   m_Center: {x: 0.11476406, y: 0.005962403, z: 0}
+--- !u!114 &243737195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243737192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46085ef76d9a5b9419d03a3374705eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &250840037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6106,6 +6132,7 @@ MonoBehaviour:
   distanciaAccion: 3
   tiempoNextMov: 0.2
   tiempoNextAc: 0.5
+  estadoActual: 0
 --- !u!65 &618065815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7842,6 +7869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1140603291}
   - component: {fileID: 1140603292}
+  - component: {fileID: 1140603293}
   m_Layer: 10
   m_Name: Abajo
   m_TagString: Untagged
@@ -7877,6 +7905,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1561053, y: 0.64375997, z: 1}
   m_Center: {x: -0.07004713, y: 0.014009596, z: 0}
+--- !u!114 &1140603293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140603290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46085ef76d9a5b9419d03a3374705eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1170883894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8595,6 +8635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1450439376}
   - component: {fileID: 1450439377}
+  - component: {fileID: 1450439378}
   m_Layer: 10
   m_Name: Centro
   m_TagString: Untagged
@@ -8630,6 +8671,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5151217, y: 0.5980923, z: 1}
   m_Center: {x: 0.14434707, y: -0.042455077, z: 0}
+--- !u!114 &1450439378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450439375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46085ef76d9a5b9419d03a3374705eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1460761058
 GameObject:
   m_ObjectHideFlags: 0
@@ -14510,6 +14563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1861036090}
   - component: {fileID: 1861036091}
+  - component: {fileID: 1861036092}
   m_Layer: 10
   m_Name: Centro
   m_TagString: Untagged
@@ -14545,6 +14599,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5151217, y: 0.5980923, z: 1}
   m_Center: {x: 0.14434707, y: -0.042455077, z: 0}
+--- !u!114 &1861036092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861036089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46085ef76d9a5b9419d03a3374705eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1873201034 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c1fe10fb89c5c084cbb0a55d9fcd8c18, type: 3}
@@ -15007,6 +15073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124977913}
   - component: {fileID: 2124977914}
+  - component: {fileID: 2124977915}
   m_Layer: 10
   m_Name: Arriba
   m_TagString: Untagged
@@ -15042,6 +15109,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2295282, y: 0.62285066, z: 1}
   m_Center: {x: 0.11476406, y: 0.005962403, z: 0}
+--- !u!114 &2124977915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124977912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46085ef76d9a5b9419d03a3374705eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2141683222
 GameObject:
   m_ObjectHideFlags: 0

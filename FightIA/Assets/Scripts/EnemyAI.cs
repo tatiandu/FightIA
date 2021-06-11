@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour
     Rigidbody rb;
     bool enElSuelo; //Si esta en contacto con el suelo
     bool atacando; //Si esta atacando
+    bool agachado; //Si esta agachado
     bool protegido; //Si se esta protegiendo
     float temporizadorAtaque; //Para el ataque
 
@@ -30,10 +31,14 @@ public class EnemyAI : MonoBehaviour
     enum Movimientos { Acercarse, Alejarse, Quieto }
     enum Acciones { Agacharse, Levantarse, Saltar, AtacarArriba, AtacarCentro, AtacarAbajo, Protegerse, Nada }
 
+    public Estado estadoActual;
+    public enum Estado { Saltando, Agachado, Protegido, Atacando, Nada }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         atacando = false;
+        agachado = false;
         protegido = false;
         temporizadorAtaque = 0;
 
@@ -46,30 +51,36 @@ public class EnemyAI : MonoBehaviour
 
     void Update() 
     {
-        //Elige y realiza siguiente accion
-        if (temporizadorAccion == 0)
+        if (GameManager.Instance.sigueEnJuego())
         {
-            SiguienteAccion();
-            RealizaAccion();
-        }
-        temporizadorAccion += Time.deltaTime;
-        if (temporizadorAccion >= tiempoNextAc)
-        {
-            temporizadorAccion = 0;
-        }
+            //Elige y realiza siguiente accion
+            if (temporizadorAccion == 0)
+            {
+                SiguienteAccion();
+                RealizaAccion();
+            }
+            temporizadorAccion += Time.deltaTime;
+            if (temporizadorAccion >= tiempoNextAc)
+            {
+                temporizadorAccion = 0;
+            }
 
-        //Si esta ejecutando un ataque
-        if (atacando) {
-            temporizadorAtaque += Time.deltaTime;
+            ActualizaEstado();
 
-            if (temporizadorAtaque >= tiempoAtaque)
-            { //Si ha pasado el tiempo de ataque
-                atacando = false;
-                temporizadorAtaque = 0;
+            //Si esta ejecutando un ataque
+            if (atacando)
+            {
+                temporizadorAtaque += Time.deltaTime;
 
-                foreach (GameObject aux in hitboxAtaque)
-                { //Desactivar hitbox activas
-                    aux.SetActive(false);
+                if (temporizadorAtaque >= tiempoAtaque)
+                { //Si ha pasado el tiempo de ataque
+                    atacando = false;
+                    temporizadorAtaque = 0;
+
+                    foreach (GameObject aux in hitboxAtaque)
+                    { //Desactivar hitbox activas
+                        aux.SetActive(false);
+                    }
                 }
             }
         }
@@ -77,16 +88,36 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RealizaMovimiento();
-
-        //Elige siguiente movimiento
-        if (temporizadorMovimiento == 0)
-            SiguienteMovimiento();
-
-        temporizadorMovimiento += Time.deltaTime;
-        if (temporizadorMovimiento >= tiempoNextMov)
+        if (GameManager.Instance.sigueEnJuego())
         {
-            temporizadorMovimiento = 0;
+            RealizaMovimiento();
+
+            //Elige siguiente movimiento
+            if (temporizadorMovimiento == 0)
+                SiguienteMovimiento();
+
+            temporizadorMovimiento += Time.deltaTime;
+            if (temporizadorMovimiento >= tiempoNextMov)
+            {
+                temporizadorMovimiento = 0;
+            }
+        }
+    }
+
+    void ActualizaEstado()
+    {
+        if (protegido) //Protegido
+            estadoActual = Estado.Protegido;
+        else if (enElSuelo) //Atacando, Agachado, Nada
+        {
+            if (atacando) estadoActual = Estado.Atacando;
+            else if (agachado) estadoActual = Estado.Agachado;
+            else estadoActual = Estado.Nada;
+        }
+        else
+        { //Saltando, Atacando
+            if (atacando) estadoActual = Estado.Atacando;
+            else estadoActual = Estado.Saltando;
         }
     }
 
@@ -401,6 +432,7 @@ public class EnemyAI : MonoBehaviour
         GameObject personaje = GameObject.Find("character_knight");
         personaje.transform.localScale = new Vector3(1.0f, 0.65f, 1.0f); //Achatamos el modelo del personaje
 
+        agachado = true;
         hitboxPersonaje[0].enabled = false;
         hitboxPersonaje[1].enabled = true;
     }
@@ -410,6 +442,7 @@ public class EnemyAI : MonoBehaviour
         GameObject personaje = GameObject.Find("character_knight");
         personaje.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); //Estiramos el modelo del personaje
 
+        agachado = false;
         hitboxPersonaje[0].enabled = true;
         hitboxPersonaje[1].enabled = false;
     }
@@ -451,6 +484,10 @@ public class EnemyAI : MonoBehaviour
         Levantarse();
         protegido = false;
         escudo.SetActive(false);
+    }
+    public Estado GetEstado()
+    {
+        return estadoActual;
     }
 
     private void OnCollisionEnter(Collision collision)
