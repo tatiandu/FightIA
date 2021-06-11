@@ -34,9 +34,14 @@ public class EnemyAI : MonoBehaviour
     public Estado estadoActual;
     public enum Estado { Saltando, Agachado, Protegido, Atacando, Nada }
 
+    AudioSource emisor;
+    //Sonidos de salto, ataque, bloqueo, etc
+    public AudioClip[] sonidos;  //0: Salto 1: Bloqueo 2: Daño recibido 3: Protegerse 4: Agacharse
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        emisor = GetComponent<AudioSource>();
         atacando = false;
         agachado = false;
         protegido = false;
@@ -121,6 +126,20 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //Gestionar el daño recibido de un ataque
+    public void gestionaDaño()
+    {
+        if (estadoActual != Estado.Protegido)   //Si no está protegido es daño maximo
+        {
+            emisor.PlayOneShot(sonidos[2]);
+            GameManager.Instance.decrementaVidaEnemigo(0.15f);
+        }
+        else    //Si esta protegido el daño se reduce a un tercio
+        {
+            emisor.PlayOneShot(sonidos[1]);
+            GameManager.Instance.decrementaVidaEnemigo(0.05f);
+        }
+    }
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -433,6 +452,7 @@ public class EnemyAI : MonoBehaviour
         personaje.transform.localScale = new Vector3(1.0f, 0.65f, 1.0f); //Achatamos el modelo del personaje
 
         agachado = true;
+        emisor.PlayOneShot(sonidos[4]);
         hitboxPersonaje[0].enabled = false;
         hitboxPersonaje[1].enabled = true;
     }
@@ -451,24 +471,28 @@ public class EnemyAI : MonoBehaviour
     {
         Nada();
         Levantarse();
+        emisor.PlayOneShot(sonidos[0]);
         rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
     }
 
     void AtaqueArriba()
     {
         Nada();
+        emisor.PlayOneShot(sonidos[5]);
         hitboxAtaque[0].SetActive(true); //Activar la hitbox del ataque
         atacando = true; //Activar timer de duracion del ataque
     }
     void AtaqueCentro()
     {
         Nada();
+        emisor.PlayOneShot(sonidos[5]);
         hitboxAtaque[1].SetActive(true); //Activar la hitbox del ataque
         atacando = true; //Activar timer de duracion del ataque
     }
     void AtaqueAbajo()
     {
         Nada();
+        emisor.PlayOneShot(sonidos[5]);
         hitboxAtaque[2].SetActive(true); //Activar la hitbox del ataque
         atacando = true; //Activar timer de duracion del ataque
     }
@@ -476,6 +500,7 @@ public class EnemyAI : MonoBehaviour
     void Protegerse() //Activa el escudo y se protege
     {
         protegido = true;
+        emisor.PlayOneShot(sonidos[3]);
         escudo.SetActive(true);
     }
 

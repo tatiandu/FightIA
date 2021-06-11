@@ -21,9 +21,14 @@ public class PlayerController : MonoBehaviour
     public Estado estadoActual;
     public enum Estado { Saltando, Agachado, Protegido, Atacando, Nada }
 
+    AudioSource emisor;
+    //Sonidos de salto, ataque, bloqueo, etc
+    public AudioClip[] sonidos;  //0: Salto 1: Bloqueo 2: Daño recibido 3: Protegerse 4: Agacharse
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        emisor = GetComponent<AudioSource>();
         atacando = false;
         agachado = false;
         protegido = false;
@@ -91,10 +96,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Gestionar el daño recibido de un ataque
+    public void gestionaDaño()
+    {
+        if (estadoActual != Estado.Protegido)   //Si no está protegido es daño maximo
+        {
+            emisor.PlayOneShot(sonidos[2]);
+            GameManager.Instance.decrementaVidaJugador(0.15f);
+        }
+        else    //Si esta protegido el daño se reduce a un tercio
+        {
+            emisor.PlayOneShot(sonidos[1]);
+            GameManager.Instance.decrementaVidaJugador(0.05f); 
+        } 
+    }
+
     void Salto()
     {
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && enElSuelo && !protegido)
         {
+            emisor.PlayOneShot(sonidos[0]);
             rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
         }
 
@@ -112,6 +133,7 @@ public class PlayerController : MonoBehaviour
             hitboxPersonaje[1].enabled = true;
 
             personaje.transform.localScale = new Vector3(1.0f, 0.65f, 1.0f); //Achatamos el modelo del personaje
+            emisor.PlayOneShot(sonidos[4]);
         }
         else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) //Se pone de pie
         {
@@ -131,6 +153,8 @@ public class PlayerController : MonoBehaviour
         {
             protegido = true;
             escudo.SetActive(true);
+
+            emisor.PlayOneShot(sonidos[3]);
         }
         else if (Input.GetKeyUp(KeyCode.I))
         {
@@ -147,21 +171,21 @@ public class PlayerController : MonoBehaviour
         {
             hitboxAtaque[0].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
-
+            emisor.PlayOneShot(sonidos[5]);
             //Animacion correspondiente TODO
         }
         else if (Input.GetKeyDown(KeyCode.K) && !atacando && !protegido) //Centro
         {
             hitboxAtaque[1].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
-
+            emisor.PlayOneShot(sonidos[5]);
             //Animacion correspondiente TODO
         }
         else if (Input.GetKeyDown(KeyCode.L) && !atacando && !protegido) //Abajo
         {
             hitboxAtaque[2].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
-
+            emisor.PlayOneShot(sonidos[5]);
             //Animacion correspondiente TODO
         }
     }
