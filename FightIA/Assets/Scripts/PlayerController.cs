@@ -95,17 +95,23 @@ public class PlayerController : MonoBehaviour
 
     void Agachar()
     {
+        GameObject personaje = GameObject.Find("character_rogue");
+
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && enElSuelo) //Se agacha
         {
             agachado = true;
             hitboxPersonaje[0].enabled = false;
             hitboxPersonaje[1].enabled = true;
+
+            personaje.transform.localScale = new Vector3(1.0f, 0.65f, 1.0f); //Achatamos el modelo del personaje
         }
         else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) //Se pone de pie
         {
             agachado = false;
             hitboxPersonaje[0].enabled = true;
             hitboxPersonaje[1].enabled = false;
+
+            personaje.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); //Estiramos el modelo del personaje
         }
 
         //Animacion correspondiente TODO

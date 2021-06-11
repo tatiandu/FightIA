@@ -95,8 +95,10 @@ public class EnemyAI : MonoBehaviour
 
     void SiguienteAccion()
     {
+        int probabilidad = Random.Range(0, 100);
+
         float vidaJugador = GameManager.Instance.GetVidaJugador();
-        float vidaEnemigo = GameManager.Instance.GetVidaEnemigo();
+        float vidaIA = GameManager.Instance.GetVidaEnemigo();
         float distancia = Vector3.Distance(GameManager.Instance.GetPosJugador(), transform.position);
         PlayerController.Estado estadoJugador = GameManager.Instance.GetEstadoJugador();
 
@@ -106,12 +108,40 @@ public class EnemyAI : MonoBehaviour
                 if(distancia < distanciaAccion) //Cerca
                 {
                     //Probabilidad dependiente de la vida restante de cada jugador
-                    accionActual = Acciones.AtacarCentro;
+                    if (vidaIA > vidaJugador)
+                    {
+                        if (probabilidad < 40)
+                            accionActual = Acciones.AtacarCentro;
+                        else if (probabilidad >= 40 && probabilidad < 60)
+                            accionActual = Acciones.AtacarAbajo;
+                        else if (probabilidad >= 60 && probabilidad < 80)
+                            accionActual = Acciones.Protegerse;
+                        else
+                            accionActual = Acciones.Nada;
+                    }
+                    else
+                    {
+                        if (probabilidad < 50)
+                            accionActual = Acciones.Protegerse;
+                        else if (probabilidad >= 50 && probabilidad < 80)
+                            accionActual = Acciones.AtacarCentro;
+                        else if (probabilidad >= 80 && probabilidad < 90)
+                            accionActual = Acciones.Agacharse;
+                        else
+                            accionActual = Acciones.Nada;
+                    }
                 }
                 else //Lejos
                 {
                     //Probabilidad random
-                    accionActual = Acciones.Saltar;
+                    if (probabilidad < 50)
+                        accionActual = Acciones.Nada;
+                    else if (probabilidad >= 50 && probabilidad < 65)
+                        accionActual = Acciones.Saltar;
+                    else if (probabilidad >= 65 && probabilidad < 80)
+                        accionActual = Acciones.Protegerse;
+                    else
+                        accionActual = Acciones.Agacharse;
                 }
                 break;
 
@@ -119,12 +149,24 @@ public class EnemyAI : MonoBehaviour
                 if (distancia < distanciaAccion) //Cerca
                 {
                     //Pequeña probabilidad de atacar de vuelta y mayor de saltar y protegerse
-                    accionActual = Acciones.Saltar;
+                    if (probabilidad < 50)
+                        accionActual = Acciones.Protegerse;
+                    else if (probabilidad >= 50 && probabilidad < 70)
+                        accionActual = Acciones.Saltar;
+                    else if (probabilidad >= 70 && probabilidad < 80)
+                        accionActual = Acciones.Agacharse;
+                    else
+                        accionActual = Acciones.AtacarCentro;
                 }
                 else //Lejos
                 {
                     //Probabilidad random pero un poco mas de protegerse
-                    accionActual = Acciones.Protegerse;
+                    if (probabilidad < 60)
+                        accionActual = Acciones.Protegerse;
+                    else if (probabilidad >= 60 && probabilidad < 80)
+                        accionActual = Acciones.Nada;
+                    else
+                        accionActual = Acciones.Saltar;
                 }
                 break;
 
@@ -132,12 +174,28 @@ public class EnemyAI : MonoBehaviour
                 if (distancia < distanciaAccion) //Cerca
                 {
                     //Mayor probabilidad de ataque bajo, menor de otros ataques y poco de random
-                    accionActual = Acciones.AtacarAbajo;
+                    if (probabilidad < 50)
+                        accionActual = Acciones.AtacarAbajo;
+                    else if (probabilidad >= 50 && probabilidad < 60)
+                        accionActual = Acciones.AtacarCentro;
+                    else if (probabilidad >= 60 && probabilidad < 70)
+                        accionActual = Acciones.AtacarArriba;
+                    else
+                        accionActual = Acciones.Protegerse;
                 }
                 else //Lejos
                 {
                     //Nada y un poquito de error
-                    accionActual = Acciones.Agacharse;
+                    if (probabilidad < 50)
+                        accionActual = Acciones.Nada;
+                    else if (probabilidad >= 50 && probabilidad < 60)
+                        accionActual = Acciones.AtacarCentro;
+                    else if (probabilidad >= 60 && probabilidad < 70)
+                        accionActual = Acciones.AtacarArriba;
+                    else if (probabilidad >= 70 && probabilidad < 80)
+                        accionActual = Acciones.Agacharse;
+                    else
+                        accionActual = Acciones.Saltar;
                 }
                 break;
 
@@ -145,12 +203,28 @@ public class EnemyAI : MonoBehaviour
                 if (distancia < distanciaAccion) //Cerca
                 {
                     //Mayor probabilidad de ataque bajo, menor de otros ataques y tambien de salto
-                    accionActual = Acciones.AtacarAbajo;
+                    if (probabilidad < 50)
+                        accionActual = Acciones.AtacarAbajo;
+                    else if (probabilidad >= 50 && probabilidad < 60)
+                        accionActual = Acciones.AtacarCentro;
+                    else if (probabilidad >= 60 && probabilidad < 70)
+                        accionActual = Acciones.AtacarArriba;
+                    else if (probabilidad >= 70 && probabilidad < 80)
+                        accionActual = Acciones.Saltar;
+                    else
+                        accionActual = Acciones.Protegerse;
                 }
                 else //Lejos
                 {
                     //Probabilidad random
-                    accionActual = Acciones.Protegerse;
+                    if (probabilidad < 50)
+                        accionActual = Acciones.Nada;
+                    else if (probabilidad >= 50 && probabilidad < 65)
+                        accionActual = Acciones.Saltar;
+                    else if (probabilidad >= 65 && probabilidad < 80)
+                        accionActual = Acciones.Protegerse;
+                    else
+                        accionActual = Acciones.Agacharse;
                 }
                 break;
 
@@ -158,12 +232,40 @@ public class EnemyAI : MonoBehaviour
                 if (distancia < distanciaAccion) //Cerca
                 {
                     //Probabilidad dependiente de la vida restante de cada jugador
-                    accionActual = Acciones.AtacarArriba;
+                    if (vidaIA > vidaJugador)
+                    {
+                        if (probabilidad < 60)
+                            accionActual = Acciones.AtacarArriba;
+                        else if (probabilidad >= 60 && probabilidad < 70)
+                            accionActual = Acciones.Saltar;
+                        else if (probabilidad >= 70 && probabilidad < 90)
+                            accionActual = Acciones.Protegerse;
+                        else
+                            accionActual = Acciones.Nada;
+                    }
+                    else
+                    {
+                        if (probabilidad < 70)
+                            accionActual = Acciones.Protegerse;
+                        else if (probabilidad >= 70 && probabilidad < 90)
+                            accionActual = Acciones.AtacarArriba;
+                        else
+                            accionActual = Acciones.Saltar;
+                    }
                 }
                 else //Lejos
                 {
                     //Probabilidad random con mayor proteccion o saltar
-                    accionActual = Acciones.Saltar;
+                    if (probabilidad < 40)
+                        accionActual = Acciones.Protegerse;
+                    else if (probabilidad >= 40 && probabilidad < 60)
+                        accionActual = Acciones.AtacarArriba;
+                    else if (probabilidad >= 60 && probabilidad < 70)
+                        accionActual = Acciones.AtacarCentro;
+                    else if (probabilidad >= 70 && probabilidad < 80)
+                        accionActual = Acciones.Agacharse;
+                    else
+                        accionActual = Acciones.Nada;
                 }
                 break;
 
@@ -296,12 +398,18 @@ public class EnemyAI : MonoBehaviour
 
     void Agacharse() //Cambiamos a la hitbox de personaje agachado
     {
+        GameObject personaje = GameObject.Find("character_knight");
+        personaje.transform.localScale = new Vector3(1.0f, 0.65f, 1.0f); //Achatamos el modelo del personaje
+
         hitboxPersonaje[0].enabled = false;
         hitboxPersonaje[1].enabled = true;
     }
 
     void Levantarse() //Cambiamos a la hitbox de personaje de pie
     {
+        GameObject personaje = GameObject.Find("character_knight");
+        personaje.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); //Estiramos el modelo del personaje
+
         hitboxPersonaje[0].enabled = true;
         hitboxPersonaje[1].enabled = false;
     }
@@ -340,6 +448,7 @@ public class EnemyAI : MonoBehaviour
 
     void Nada() //No esta protegido y ?? TODO
     {
+        Levantarse();
         protegido = false;
         escudo.SetActive(false);
     }
