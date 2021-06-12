@@ -6,8 +6,9 @@
 -4: Explicación por puntos de todo lo que se puede hacer en el prototipo
 
 x-Movimiento y ataques del jugador
--Corresponder las barras de vida a los ataques
--IA: máquina de estados por código con un switch ordenadito, limpito y espectacular
+x-Corresponder las barras de vida a los ataques
+x-IA: máquina de estados por código con un switch ordenadito, limpito y espectacular
 x-Meter los personajes y escenario
--Animaciones acordes a los estados/ataques Y ESCUDO
+-Animaciones acordes a los estados/ataques
+x-ESCUDO
 -Detallitos finales (animaciones mas rapidas si poca vida/tiempo)

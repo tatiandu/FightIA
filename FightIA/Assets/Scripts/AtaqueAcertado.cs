@@ -12,23 +12,14 @@ public class AtaqueAcertado : MonoBehaviour
 
             if (AIcontroller != null) //Es la IA enemiga
             {
-                AIcontroller.gestionaDaño();
-                //if (AIcontroller.GetEstado() != EnemyAI.Estado.Protegido)   //Si no está protegido es daño maximo
-                //{
-                //    GameManager.Instance.decrementaVidaEnemigo(0.15f);
-                //}
-                //else { GameManager.Instance.decrementaVidaEnemigo(0.05f); } //Si esta protegido el daño se reduce a un tercio
+                AIcontroller.GestionaDanio();
             }
 
             PlayerController controller = other.gameObject.GetComponent<PlayerController>();
 
             if (controller != null) //Es el jugador de input
             {
-                controller.gestionaDaño();
-                //if(controller.GetEstado() != PlayerController.Estado.Protegido) {   //Si no está protegido es daño maximo
-                //    GameManager.Instance.decrementaVidaJugador(0.15f);
-                //}
-                //else{ GameManager.Instance.decrementaVidaJugador(0.05f); }  //Si esta protegido el daño se reduce a un tercio
+                controller.GestionaDanio();
             }
         }
     }

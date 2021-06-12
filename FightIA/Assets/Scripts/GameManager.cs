@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject jugador;
     public GameObject enemigo;
+    public Text textoVictoria;
     public Timer tiempo;
+    public float tiempoPartida = 120;
     public BarraVida vidaJugador;
     public BarraVida vidaEnemigo;
 
     bool personajesGirados;
-    float tiempoPartida;
     PlayerController comportamientoJugador;
     EnemyAI comportamientoEnemigo;
 
@@ -33,13 +35,13 @@ public class GameManager : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
     {
         enJuego = true;
         personajesGirados = false;
+        tiempo.SetTiempo(tiempoPartida);
         comportamientoJugador = jugador.GetComponent<PlayerController>();
         comportamientoEnemigo = enemigo.GetComponent<EnemyAI>();
     }
@@ -72,19 +74,19 @@ public class GameManager : MonoBehaviour
     {
         if(vidaJugador.estaAgotada() && !vidaEnemigo.estaAgotada() || vidaJugador.GetSalud() < vidaEnemigo.GetSalud() && tiempo.tiempoAgotado()) //El jugador de imput ha perdido
         {
-            Debug.Log("Ha ganado la IA");
+            textoVictoria.text = "¡Ha ganado la IA!";
             enJuego = false;
             tiempo.paraTiempo();
         }
         else if (vidaEnemigo.estaAgotada() && !vidaJugador.estaAgotada() || vidaJugador.GetSalud() > vidaEnemigo.GetSalud() && tiempo.tiempoAgotado()) //El jugador de imput ha ganado
         {
-            Debug.Log("Ha ganado el jugador humano");
+            textoVictoria.text = "¡Ha ganado el humano!";
             enJuego = false;
             tiempo.paraTiempo();
         }
         else if (vidaJugador.estaAgotada() && vidaEnemigo.estaAgotada() || vidaJugador.GetSalud() == vidaEnemigo.GetSalud() && tiempo.tiempoAgotado())    //Empate entre los jugadores
         {
-            Debug.Log("El hombre y la máquina han empatado");
+            textoVictoria.text = "¡El hombre y la máquina han empatado!";
             enJuego = false;
             tiempo.paraTiempo();
         }
@@ -99,6 +101,12 @@ public class GameManager : MonoBehaviour
     public Vector3 GetPosJugador()
     {
         return jugador.transform.position;
+    }
+
+    //Getter de la posicion del enemigo
+    public Vector3 GetPosEnemigo()
+    {
+        return enemigo.transform.position;
     }
 
     //Getter del estado actual del jugador

@@ -17,14 +17,9 @@ public class BarraVida : MonoBehaviour
         barra = gameObject.GetComponent<Slider>();
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
-        if (barra.value > valorFinal)
+        if (barra.value > valorFinal) //La barra diminuye
         {
             barra.value -= velocidad * Time.deltaTime;
             if (!particulas.isPlaying)
@@ -37,7 +32,7 @@ public class BarraVida : MonoBehaviour
             particulas.Stop();
         }
 
-        if(barra.value <= 0)
+        if(barra.value <= 0) //Si se agota no salen mas particulas
         {
             imagenBarra.enabled = false;
             particulas.Stop();

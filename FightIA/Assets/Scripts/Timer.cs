@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float tiempoRestante = 120;
-
+    float tiempoRestante;
     Text textoTimer;
     bool activado;
 
@@ -27,7 +26,6 @@ public class Timer : MonoBehaviour
             }
             else //Cuando llegue a 0 paramos el contador
             {
-                Debug.Log("Se acabo el tiempo ups!");
                 tiempoRestante = 0;
                 activado = false;
             }
@@ -42,6 +40,11 @@ public class Timer : MonoBehaviour
         float segundos = Mathf.FloorToInt(tiempoAMostrar % 60);
 
         textoTimer.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+    }
+
+    public void SetTiempo(float t)
+    {
+        tiempoRestante = t;
     }
 
     public float GetTiempo()

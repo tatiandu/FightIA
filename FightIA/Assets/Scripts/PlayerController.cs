@@ -2,33 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : FightingController
 {
-    public float velocidad;
-    public float fuerzaSalto;
-    public float tiempoAtaque;
-    public GameObject escudo;
-    public GameObject[] hitboxAtaque; //0: Arriba, 1: Centro, 2: Abajo
-    public Collider[] hitboxPersonaje; //0: De pie, 1: Agachado
-
-    Rigidbody rb;
-    bool enElSuelo; //Si esta en contacto con el suelo
-    bool atacando; //Si esta atacando
-    bool agachado; //Si esta agachado
-    bool protegido; //Si se esta protegiendo
     float temporizador; //Para el ataque
-
-    public Estado estadoActual;
-    public enum Estado { Saltando, Agachado, Protegido, Atacando, Nada }
-
-    AudioSource emisor;
-    //Sonidos de salto, ataque, bloqueo, etc
-    public AudioClip[] sonidos;  //0: Salto 1: Bloqueo 2: Daño recibido 3: Protegerse 4: Agacharse
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        emisor = GetComponent<AudioSource>();
+        emisorAudio = GetComponent<AudioSource>();
         atacando = false;
         agachado = false;
         protegido = false;
@@ -74,55 +55,40 @@ public class PlayerController : MonoBehaviour
             if (!protegido)
             {
                 rb.velocity = new Vector3(velocidad * Input.GetAxis("Horizontal"), rb.velocity.y, rb.velocity.z);
-
-                //Animacion correspondiente TODO
             }
         }
     }
 
-    void ActualizaEstado()
-    {
-        if (protegido) //Protegido
-            estadoActual = Estado.Protegido;
-        else if (enElSuelo) //Atacando, Agachado, Nada
-        {
-            if (atacando) estadoActual = Estado.Atacando;
-            else if (agachado) estadoActual = Estado.Agachado;
-            else estadoActual = Estado.Nada;
-        }
-        else { //Saltando, Atacando
-            if (atacando) estadoActual = Estado.Atacando;
-            else estadoActual = Estado.Saltando;
-        }
-    }
-
     //Gestionar el daño recibido de un ataque
-    public void gestionaDaño()
+    public override void GestionaDanio()
     {
-        if (estadoActual != Estado.Protegido)   //Si no está protegido es daño maximo
+        if (estadoActual != Estado.Protegido)   //Si no está protegido es danio maximo
         {
-            emisor.PlayOneShot(sonidos[2]);
-            GameManager.Instance.decrementaVidaJugador(0.15f);
+            emisorAudio.PlayOneShot(sonidos[2]);
+            GameManager.Instance.decrementaVidaJugador(0.1f);
+
+            //Efecto de repulsion
+            Vector3 dir = transform.position - GameManager.Instance.GetPosEnemigo();
+            dir.Normalize();
+            rb.AddForce(dir * knockback, ForceMode.Impulse);
         }
-        else    //Si esta protegido el daño se reduce a un tercio
+        else    //Si esta protegido el danio se reduce a un tercio
         {
-            emisor.PlayOneShot(sonidos[1]);
-            GameManager.Instance.decrementaVidaJugador(0.05f); 
+            emisorAudio.PlayOneShot(sonidos[1]);
+            GameManager.Instance.decrementaVidaJugador(0.04f); 
         } 
     }
 
-    void Salto()
+    protected override void Salto()
     {
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && enElSuelo && !protegido)
         {
-            emisor.PlayOneShot(sonidos[0]);
+            emisorAudio.PlayOneShot(sonidos[0]);
             rb.AddForce(new Vector3(0, fuerzaSalto, 0), ForceMode.Impulse);
         }
-
-        //Animacion correspondiente TODO
     }
 
-    void Agachar()
+    protected override void Agachar()
     {
         GameObject personaje = GameObject.Find("character_rogue");
 
@@ -133,7 +99,7 @@ public class PlayerController : MonoBehaviour
             hitboxPersonaje[1].enabled = true;
 
             personaje.transform.localScale = new Vector3(1.0f, 0.65f, 1.0f); //Achatamos el modelo del personaje
-            emisor.PlayOneShot(sonidos[4]);
+            emisorAudio.PlayOneShot(sonidos[4]);
         }
         else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) //Se pone de pie
         {
@@ -143,63 +109,50 @@ public class PlayerController : MonoBehaviour
 
             personaje.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f); //Estiramos el modelo del personaje
         }
-
-        //Animacion correspondiente TODO
     }
 
-    void Proteger()
+    protected override void Proteger()
     {
         if (Input.GetKeyDown(KeyCode.I) && !atacando && enElSuelo)
         {
             protegido = true;
             escudo.SetActive(true);
 
-            emisor.PlayOneShot(sonidos[3]);
+            emisorAudio.PlayOneShot(sonidos[3]);
         }
         else if (Input.GetKeyUp(KeyCode.I))
         {
             protegido = false;
             escudo.SetActive(false);
         }
-
-        //Animacion correspondiente TODO
     }
 
-    void Ataque()
+    protected override void Ataque()
     {
         if (Input.GetKeyDown(KeyCode.J) && !atacando && !protegido) //Arriba
         {
             hitboxAtaque[0].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
-            emisor.PlayOneShot(sonidos[5]);
-            //Animacion correspondiente TODO
+            emisorAudio.PlayOneShot(sonidos[5]);
         }
         else if (Input.GetKeyDown(KeyCode.K) && !atacando && !protegido) //Centro
         {
             hitboxAtaque[1].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
-            emisor.PlayOneShot(sonidos[5]);
-            //Animacion correspondiente TODO
+            emisorAudio.PlayOneShot(sonidos[5]);
         }
         else if (Input.GetKeyDown(KeyCode.L) && !atacando && !protegido) //Abajo
         {
             hitboxAtaque[2].SetActive(true); //Activar la hitbox del ataque
             atacando = true; //Activar timer de duracion del ataque
-            emisor.PlayOneShot(sonidos[5]);
-            //Animacion correspondiente TODO
+            emisorAudio.PlayOneShot(sonidos[5]);
         }
-    }
-
-    public Estado GetEstado()
-    {
-        return estadoActual;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Plane")
         {
-            estadoActual = Estado.Nada; //Actualizamos estado
             enElSuelo = true;
         }
     }
