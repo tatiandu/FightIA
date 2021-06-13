@@ -1,0 +1,23 @@
+
+FightIA - https://github.com/tatiandu/FightIA
+	
+Integrantes:
+-Tatiana Duarte Balvís
+-Adrián de Lucas Gómez
+	
+EXPLICACIÓN DEL PROYECTO:
+FightIA es un proyecto planteado como un juego con una Inteligencia Artificial simple para iniciarse en los juegos de pelea y poder mejorar tus estrategias como jugador. Para ello, hemos realizado una labor de investigación sobre cómo se desarrollan las IA en este tipo de juegos y nos hemos basado en grandes clásicos y referentes del género, como Street Fighter II, que a pesar de no contar con una IA demasiado compleja como es el caso de los juegos actuales, alcanzó gran fama mundial debido a otros factores como los moveset y combos.
+
+ELEMENTOS DEL PROYECTO:
+-Documentación extensa sobre implementación de IA en juegos de pelea.
+-Controlador por input de teclado del jugador.
+-Controlador automático gestionado por una IA.
+-Sistema de salud.
+-Sistema de gestión del estado de la partida.
+	
+OTROS ELEMENTOS OPCIONALES AÑADIDOS:
+-Muchos parametros modificables desde el editor.
+-Botón de reinicio de la escena y botón para salir del ejecutable.
+-Modelos y decorados para dar un mejor aspecto al prototipo y aportarle personalidad propia, además de servir de feedback visual.
+-Barras de vida dinámicas y bajan su valor gradualmente dando un aspecto progresivo.
+-Música de fondo y sonidos para dar feedback extras.
