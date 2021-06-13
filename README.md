@@ -35,7 +35,7 @@ En conjunción a esta técnica se suele usar el **Machine Learning** para que tr
 Hoy en día diríamos que la Inteligencia Artificial en **Street Fighter II** no es nada muy sofisticado, ya que normalmente cuando se habla de IA mucha gente piensa en el **Machine Learning** mencionado anteriormente. Sin embargo, no existe nada como eso en SF2 y otros juegos de la época.
 
 <br>
-<img src="./Imagenes/StreetFighterIA.PNG">
+<img src="./Media/StreetFighterIA.PNG">
 <br> <br>
 
 Los personajes de SF2 no realizan movimientos y acciones de forma independiente, sino que estos se agrupan en pequeños scripts escritos en “lenguaje máquina” englobándose así en rutinas. Por ejemplo, una rutina típica de ataques de un personaje será una lista de acciones como atacar, esperar, moverse y otras acciones dependientes del estado del jugador.
@@ -114,33 +114,59 @@ Tras esta toma de decisiones se llama a los métodos correspondientes que se enc
 
 - **Protegerse si está cerca**
 
-<img src="./Imagenes/StreetFighterIA.PNG">
+<img src="./Media/StreetFighterIA.PNG">
 <br><br>
 
 - **Atacar hacia arriba si el contrincante está en el aire**
 
-<img src="./Imagenes/StreetFighterIA.PNG">
+<img src="./Media/StreetFighterIA.PNG">
 <br><br>
 
 - **Atacar si está en rango**
 
-<img src="./Imagenes/StreetFighterIA.PNG">
+<img src="./Media/StreetFighterIA.PNG">
 <br><br>
 
 - **Saltar si el otro salta (Mantener misma altura)**
 
-<img src="./Imagenes/StreetFighterIA.PNG">
+<img src="./Media/StreetFighterIA.PNG">
 <br><br>
 
 - **Alejarse si está cerca**
-[Vídeo demo](https://drive.google.com/file/d/1zjak_4D0Re-VioP9UHJNAunYUbKRHFmv/view?usp=sharing)
-<br>
 
-- **Daño reducido si está protegido** [Vídeo demo](https://drive.google.com/file/d/1zjak_4D0Re-VioP9UHJNAunYUbKRHFmv/view?usp=sharing)
-- **Acercarse si está lejos** [Vídeo demo](https://drive.google.com/file/d/1zjak_4D0Re-VioP9UHJNAunYUbKRHFmv/view?usp=sharing)
-- **Gana si derrota al jugador** [Vídeo demo](https://drive.google.com/file/d/1zjak_4D0Re-VioP9UHJNAunYUbKRHFmv/view?usp=sharing)
-- **Pierde si el jugador le derrota** [Vídeo demo](https://drive.google.com/file/d/1zjak_4D0Re-VioP9UHJNAunYUbKRHFmv/view?usp=sharing)
-- **Empata si el tiempo se agota y tienen la misma vida** [Vídeo demo](https://drive.google.com/file/d/1zjak_4D0Re-VioP9UHJNAunYUbKRHFmv/view?usp=sharing)
+<br>
+<video src="./Media/seAleja.mp4" height=350> </video>
+<br><br>
+
+- **Daño reducido si está protegido**
+
+<br>
+<video src="./Media/danioReducido.mp4" height=350> </video>
+<br><br>
+
+- **Acercarse si está lejos**
+
+<br>
+<video src="./Media/seAcerca.mp4" height=350> </video>
+<br><br>
+
+- **Gana si derrota al jugador**
+
+<br>
+<video src="./Media/ganaLaIA.mp4" height=350> </video>
+<br><br>
+
+- **Pierde si el jugador la derrota**
+
+<br>
+<video src="./Media/ganaElJugador.mp4" height=350> </video>
+<br><br>
+
+- **Empata si el tiempo se agota y tienen la misma vida**
+
+<br>
+<video src="./Media/empatan.mp4" height=350> </video>
+<br><br>
 
 <br>
 <hr>
@@ -152,7 +178,7 @@ Tras esta toma de decisiones se llama a los métodos correspondientes que se enc
 
 - Hemos agregado un **botón para reiniciar** la escena, de tal forma que ayuda a la hora de realizar pruebas de funcionalidad o por si se produjera cualquier error.
 
-- Hemos agregado un **botón para salir** de la build del juego.
+- Hemos agregado un **botón para salir** del ejecutable del juego.
 
 - Hemos añadido modelos y decorados para dar un mejor aspecto al prototipo y aportarle personalidad propia, además de servir de feedback visual (por ejemplo: se muestra un escudo al protegerse).
 
