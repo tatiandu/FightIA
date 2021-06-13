@@ -77,7 +77,7 @@ Los movimientos posibles entre los que decidir no son muchos al tratarse de un j
 - **SiguienteAcción**: Según el estado en el que se encuentra el enemigo y teniendo en cuenta parámetros como la posición de los personajes, la distancia y la vida de cada uno se calcula cual es la orden más óptima a dar en cada situación, pero para meter un poco de variación y error “humano” estas órdenes estarán influenciadas por una probabilidad y porcentajes de que se haga una acción u otra dándole mayor porcentaje a la acción más óptima para esa situación. Tras gran cantidad de pruebas y evaluaciones se han llegado a los porcentajes que se han usado finalmente, ya que ofrecen la experiencia más equilibrada entre dificultad y satisfacción.
 Las acciones posibles que puede realizar son: agacharse, levantarse, saltar, atacar hacia arriba, atacar hacia el centro, atacar hacia abajo, protegerse o no hacer nada.
 <br><br>
-<img src="./Media/EsquemaAcciones.PNG" height=400 >
+<img src="./Media/EsquemaAcciones.png" height=400 >
 <br> <br>
 
 Tras esta toma de decisiones se llama a los métodos correspondientes que se encargan de ejecutar las instrucciones dadas, tanto de movimiento como de acción.
