@@ -76,9 +76,20 @@ Los movimientos posibles entre los que decidir no son muchos al tratarse de un j
 
 - **SiguienteAcción**: Según el estado en el que se encuentra el enemigo y teniendo en cuenta parámetros como la posición de los personajes, la distancia y la vida de cada uno se calcula cual es la orden más óptima a dar en cada situación, pero para meter un poco de variación y error “humano” estas órdenes estarán influenciadas por una probabilidad y porcentajes de que se haga una acción u otra dándole mayor porcentaje a la acción más óptima para esa situación. Tras gran cantidad de pruebas y evaluaciones se han llegado a los porcentajes que se han usado finalmente, ya que ofrecen la experiencia más equilibrada entre dificultad y satisfacción.
 Las acciones posibles que puede realizar son: agacharse, levantarse, saltar, atacar hacia arriba, atacar hacia el centro, atacar hacia abajo, protegerse o no hacer nada.
-
+<br><br>
+<img src="./Media/EsquemaAcciones.PNG" height=400 >
+<br> <br>
 
 Tras esta toma de decisiones se llama a los métodos correspondientes que se encargan de ejecutar las instrucciones dadas, tanto de movimiento como de acción.
+
+<br>
+<hr>
+
+## __Partida de demostración__
+
+<br>
+
+<a href="https://drive.google.com/file/d/1aWZ-EqAb74lG18C64XpNuUffYMOViT5C/view?usp=sharing"><img src="./Media/demoPortada.jpg" height=400></a>
 
 <br>
 <hr>
@@ -111,33 +122,22 @@ Tras esta toma de decisiones se llama a los métodos correspondientes que se enc
 
 ## __Pruebas realizadas__
 
+- **Protegerse si está cerca** [Vídeo demo](https://drive.google.com/file/d/13vxTIOks1LUMHzWYq72TWKWeLswj71vi/view?usp=sharing)
 
-- **Protegerse si está cerca**
+- **Atacar hacia arriba si el contrincante está en el aire** [Vídeo demo](https://drive.google.com/file/d/1h7f621-wncwKS6MxnsdnxjMNnEgV9q5C/view?usp=sharing)
 
-<img src="./Media/StreetFighterIA.PNG">
-<br><br>
-
-- **Atacar hacia arriba si el contrincante está en el aire**
-
-<img src="./Media/StreetFighterIA.PNG">
-<br><br>
-
-- **Atacar si está en rango**
-
-<img src="./Media/StreetFighterIA.PNG">
-<br><br>
-
-- **Saltar si el otro salta (Mantener misma altura)**
-
-<img src="./Media/StreetFighterIA.PNG">
-<br><br>
+- **Atacar si está en rango** [Vídeo demo](https://drive.google.com/file/d/1Ko1FS8jqBE0LKozJCNXsU3dk0zuD4KDl/view?usp=sharing)
 
 - **Alejarse si está cerca** [Vídeo demo](https://drive.google.com/file/d/1QdXjKKS7iq4At2p-KRYRg_Fqkhtx-fqC/view?usp=sharing)
 
 - **Daño reducido si está protegido** [Vídeo demo](https://drive.google.com/file/d/1xiB9V_afiB-i-A-xWYwYKYvwEqjvgdyW/view?usp=sharing)
+
 - **Acercarse si está lejos** [Vídeo demo](https://drive.google.com/file/d/1_zeMSqeRQ_OfG6RwqSUyZlVMh0lcIXjt/view?usp=sharing)
+
 - **Gana si derrota al jugador** [Vídeo demo](https://drive.google.com/file/d/1Qulr-U-E0JLAayR5zXeRMvXCrCV0i1pR/view?usp=sharing)
+
 - **Pierde si el jugador le derrota** [Vídeo demo](https://drive.google.com/file/d/1S-cnyfivoMP3Qc1xQeTEBWSlZ1OuP_xh/view?usp=sharing)
+
 - **Empata si el tiempo se agota y tienen la misma vida** [Vídeo demo](https://drive.google.com/file/d/1m0X1Q45Xz_oi-u1nXqzgyMcAxYSxhSOg/view?usp=sharing)
 
 <br>
