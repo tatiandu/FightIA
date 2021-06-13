@@ -132,41 +132,13 @@ Tras esta toma de decisiones se llama a los métodos correspondientes que se enc
 <img src="./Media/StreetFighterIA.PNG">
 <br><br>
 
-- **Alejarse si está cerca**
+- **Alejarse si está cerca** [Vídeo demo](https://drive.google.com/file/d/1QdXjKKS7iq4At2p-KRYRg_Fqkhtx-fqC/view?usp=sharing)
 
-<br>
-<video src="./Media/seAleja.mp4" height=350> </video>
-<br><br>
-
-- **Daño reducido si está protegido**
-
-<br>
-<video src="./Media/danioReducido.mp4" height=350> </video>
-<br><br>
-
-- **Acercarse si está lejos**
-
-<br>
-<video src="./Media/seAcerca.mp4" height=350> </video>
-<br><br>
-
-- **Gana si derrota al jugador**
-
-<br>
-<video src="./Media/ganaLaIA.mp4" height=350> </video>
-<br><br>
-
-- **Pierde si el jugador la derrota**
-
-<br>
-<video src="./Media/ganaElJugador.mp4" height=350> </video>
-<br><br>
-
-- **Empata si el tiempo se agota y tienen la misma vida**
-
-<br>
-<video src="./Media/empatan.mp4" height=350> </video>
-<br><br>
+- **Daño reducido si está protegido** [Vídeo demo](https://drive.google.com/file/d/1xiB9V_afiB-i-A-xWYwYKYvwEqjvgdyW/view?usp=sharing)
+- **Acercarse si está lejos** [Vídeo demo](https://drive.google.com/file/d/1_zeMSqeRQ_OfG6RwqSUyZlVMh0lcIXjt/view?usp=sharing)
+- **Gana si derrota al jugador** [Vídeo demo](https://drive.google.com/file/d/1Qulr-U-E0JLAayR5zXeRMvXCrCV0i1pR/view?usp=sharing)
+- **Pierde si el jugador le derrota** [Vídeo demo](https://drive.google.com/file/d/1S-cnyfivoMP3Qc1xQeTEBWSlZ1OuP_xh/view?usp=sharing)
+- **Empata si el tiempo se agota y tienen la misma vida** [Vídeo demo](https://drive.google.com/file/d/1m0X1Q45Xz_oi-u1nXqzgyMcAxYSxhSOg/view?usp=sharing)
 
 <br>
 <hr>
@@ -178,7 +150,7 @@ Tras esta toma de decisiones se llama a los métodos correspondientes que se enc
 
 - Hemos agregado un **botón para reiniciar** la escena, de tal forma que ayuda a la hora de realizar pruebas de funcionalidad o por si se produjera cualquier error.
 
-- Hemos agregado un **botón para salir** del ejecutable del juego.
+- Hemos agregado un **botón para salir** de la build del juego.
 
 - Hemos añadido modelos y decorados para dar un mejor aspecto al prototipo y aportarle personalidad propia, además de servir de feedback visual (por ejemplo: se muestra un escudo al protegerse).
 
